@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Konfiguracja transportera email (Gmail)
-const transporter = nodemailer.createTransporter({
+const transport = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER,
@@ -51,7 +51,7 @@ app.post('/api/send-email', async (req, res) => {
   };
 
   try {
-    await transporter.sendMail(mailOptions);
+    await transport.sendMail(mailOptions);
     console.log(`Email wysłany od: ${name} <${email}>`);
     res.status(200).json({ 
       success: true, 

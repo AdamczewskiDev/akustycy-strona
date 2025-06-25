@@ -17,12 +17,53 @@ const App = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Formularz wysłany:', formData);
-    alert('Dziękujemy za wiadomość! Skontaktujemy się z Tobą wkrótce.');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  
+  // Walidacja
+  if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+    alert('Proszę wypełnić wszystkie pola');
+    return;
+  }
+
+  // Przygotuj dane w formacie wymaganym przez Web3Forms
+  const formDataToSend = {
+    access_key: "f987af94-36e3-42a5-858a-2cf1696ff7de", // Zamień na swój klucz
+    name: formData.name,
+    email: formData.email,
+    subject: formData.subject,
+    message: formData.message,
+    from_name: "SoundTech Pro - Formularz kontaktowy",
+    replyto: formData.email,
   };
+
+  try {
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(formDataToSend)
+    });
+
+    const result = await response.json();
+
+    if (response.status === 200) {
+      alert('Dziękujemy za wiadomość! Skontaktujemy się z Tobą wkrótce.');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } else {
+      console.error('Błąd Web3Forms:', result);
+      alert('Wystąpił błąd: ' + (result.message || 'Nieznany błąd'));
+    }
+  } catch (error) {
+    console.error('Błąd sieci:', error);
+    alert('Wystąpił błąd podczas wysyłania wiadomości');
+  }
+};
+
+
+
 
   return (
     <div className="App">
