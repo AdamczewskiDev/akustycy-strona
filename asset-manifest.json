@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.css": "/AdamczewskiDev/akustycy-strona/static/css/main.fdc8ee09.css",
+    "main.js": "/AdamczewskiDev/akustycy-strona/static/js/main.d29d6e54.js",
+    "static/js/206.0ea60d9c.chunk.js": "/AdamczewskiDev/akustycy-strona/static/js/206.0ea60d9c.chunk.js",
+    "index.html": "/AdamczewskiDev/akustycy-strona/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.fdc8ee09.css",
+    "static/js/main.d29d6e54.js"
+  ]
+}
