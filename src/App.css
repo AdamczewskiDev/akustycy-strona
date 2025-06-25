@@ -6,178 +6,262 @@
 
 body {
   font-family: 'Arial', sans-serif;
-  color: #000;
-  background-color: #fff;
   line-height: 1.6;
+  color: #333;
 }
 
 .App {
   text-align: center;
 }
 
-/* Wspólne style dla sekcji */
-.section {
+/* Sekcja 1 - Przywitanie */
+.section-1 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  padding: 20px;
 }
 
 .container {
   max-width: 1200px;
-  width: 100%;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-/* Sekcja 1: Przywitanie */
-.section-1 {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-}
-
 .logo-container {
-  margin-bottom: 2rem;
+  margin-bottom: 30px;
 }
 
-.logo-gif {
-  max-width: 300px;
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
+.logo-placeholder {
+  font-size: 80px;
+  margin-bottom: 20px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 
 .welcome-title {
-  font-size: 3.5rem;
+  font-size: 4rem;
   font-weight: bold;
-  margin-bottom: 1rem;
-  color: #000;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .welcome-subtitle {
   font-size: 1.5rem;
-  color: #333;
-  max-width: 600px;
-  margin: 0 auto;
+  margin-bottom: 40px;
+  opacity: 0.9;
 }
 
-/* Sekcja 2: O nas */
+.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  opacity: 0.8;
+}
+
+.arrow-down {
+  font-size: 2rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+/* Sekcja 2 - O nas */
+.section-2 {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+}
+
 .section-2 h2 {
   font-size: 3rem;
-  margin-bottom: 2rem;
-  color: #000;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .about-content {
-  text-align: left;
   max-width: 800px;
   margin: 0 auto;
 }
 
 .about-text p {
   font-size: 1.2rem;
-  margin-bottom: 1.5rem;
-  color: #333;
+  margin-bottom: 20px;
+  text-align: left;
+  line-height: 1.8;
 }
 
-.services-list {
+.services {
+  margin-top: 40px;
+  text-align: left;
+}
+
+.services h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.services ul {
   list-style: none;
-  margin: 2rem 0;
+  padding-left: 0;
 }
 
-.services-list li {
+.services li {
   font-size: 1.1rem;
-  padding: 0.5rem 0;
-  color: #333;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  position: relative;
 }
 
-/* Sekcja 3: Kontakt */
+.services li:before {
+  content: "🎵";
+  position: absolute;
+  left: 0;
+}
+
+/* Sekcja 3 - Kontakt */
+.section-3 {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0;
+}
+
 .section-3 h2 {
   font-size: 3rem;
-  margin-bottom: 2rem;
-  color: #000;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .contact-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  gap: 50px;
   max-width: 1000px;
   margin: 0 auto;
 }
 
-.contact-info {
-  text-align: left;
-}
-
-.contact-info h3 {
+.contact-info h3,
+.contact-form h3 {
   font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  color: #000;
+  margin-bottom: 30px;
+  color: #fff;
 }
 
 .contact-item {
-  margin-bottom: 1.5rem;
+  margin-bottom: 25px;
+  text-align: left;
 }
 
 .contact-item strong {
   display: block;
   font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-  color: #000;
+  margin-bottom: 5px;
+  color: #fff;
 }
 
 .contact-item p {
-  color: #333;
   font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.9;
 }
 
-/* Formularz kontaktowy */
+/* Formularz */
 .contact-form {
-  text-align: left;
-}
-
-.contact-form h3 {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  color: #000;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 20px;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 12px;
-  border: 2px solid #ddd;
-  border-radius: 5px;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
   font-size: 1rem;
-  transition: border-color 0.3s ease;
-  background-color: #fff;
-  color: #000;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  transition: all 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #333;
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
 }
 
 .submit-btn {
-  background-color: #000;
-  color: #fff;
-  padding: 12px 30px;
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   font-size: 1.1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .submit-btn:hover {
-  background-color: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Status formularza */
+.form-result {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  min-height: 20px;
+  transition: all 0.3s ease;
+}
+
+.form-result:empty {
+  display: none;
 }
 
 /* Responsywność */
@@ -192,29 +276,24 @@ body {
   
   .section-2 h2,
   .section-3 h2 {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
   
   .contact-section {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 30px;
   }
   
-  .about-text p,
-  .services-list li {
+  .about-text p {
     font-size: 1rem;
   }
   
-  .logo-gif {
-    max-width: 250px;
+  .logo-placeholder {
+    font-size: 60px;
   }
 }
 
 @media (max-width: 480px) {
-  .container {
-    padding: 0 15px;
-  }
-  
   .welcome-title {
     font-size: 2rem;
   }
@@ -223,25 +302,65 @@ body {
     font-size: 1rem;
   }
   
-  .section-2 h2,
-  .section-3 h2 {
-    font-size: 1.8rem;
+  .container {
+    padding: 0 15px;
   }
   
-  .logo-gif {
-    max-width: 200px;
+  .contact-form {
+    padding: 20px;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+  
+  .submit-btn {
+    padding: 12px;
+    font-size: 1rem;
   }
 }
 
-/* Nawigacja fullPage.js */
-#fp-nav ul li a span,
-.fp-slidesNav ul li a span {
-  background: #000;
+/* Ukrycie pola honeypot */
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  position: absolute !important;
+  left: -9999px !important;
 }
 
-#fp-nav ul li a.active span,
-.fp-slidesNav ul li a.active span,
-#fp-nav ul li:hover a.active span,
-.fp-slidesNav ul li:hover a.active span {
-  background: #333;
+/* Lepsze style dla komunikatów błędów */
+.form-result {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-align: center;
+  transition: all 0.3s ease;
+  min-height: 20px;
+}
+
+.form-result:empty {
+  display: none;
+}
+
+/* Różne kolory dla różnych statusów */
+.form-result:contains("pomyślnie") {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+}
+
+.form-result:contains("Błąd") {
+  background: rgba(244, 67, 54, 0.2);
+  color: #f44336;
+  border: 1px solid rgba(244, 67, 54, 0.3);
+}
+
+.form-result:contains("Wysyłanie") {
+  background: rgba(255, 193, 7, 0.2);
+  color: #FFC107;
+  border: 1px solid rgba(255, 193, 7, 0.3);
 }

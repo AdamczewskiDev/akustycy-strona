@@ -1,123 +1,140 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactFullpage from '@fullpage/react-fullpage';
 import './App.css';
 
-const App = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
+function Contact() {
+  const [result, setResult] = React.useState("");
 
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    setResult("Wysyłanie...");
+    const formData = new FormData(event.target);
 
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-  
-  // Walidacja
-  if (!formData.name || !formData.email || !formData.subject || !formData.message) {
-    alert('Proszę wypełnić wszystkie pola');
-    return;
-  }
+    // WAŻNE: Zamień na swój prawdziwy klucz z web3forms.com
+    formData.append("access_key", "f987af94-36e3-42a5-858a-2cf1696ff7de");
 
-  // Przygotuj dane w formacie wymaganym przez Web3Forms
-  const formDataToSend = {
-    access_key: "f987af94-36e3-42a5-858a-2cf1696ff7de", // Zamień na swój klucz
-    name: formData.name,
-    email: formData.email,
-    subject: formData.subject,
-    message: formData.message,
-    from_name: "SoundTech Pro - Formularz kontaktowy",
-    replyto: formData.email,
-  };
-
-  try {
-    const response = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(formDataToSend)
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
     });
 
-    const result = await response.json();
+    const data = await response.json();
 
-    if (response.status === 200) {
-      alert('Dziękujemy za wiadomość! Skontaktujemy się z Tobą wkrótce.');
-      setFormData({ name: '', email: '', subject: '', message: '' });
+    if (data.success) {
+      setResult("Formularz wysłany pomyślnie!");
+      event.target.reset();
     } else {
-      console.error('Błąd Web3Forms:', result);
-      alert('Wystąpił błąd: ' + (result.message || 'Nieznany błąd'));
+      console.log("Error", data);
+      setResult(`Błąd: ${data.message}`);
     }
-  } catch (error) {
-    console.error('Błąd sieci:', error);
-    alert('Wystąpił błąd podczas wysyłania wiadomości');
-  }
-};
+  };
 
+  return (
+    <div className="contact-form">
+      <h3>Napisz do nas</h3>
+      <form onSubmit={onSubmit}>
+        {/* Honeypot - ochrona przed botami */}
+        <input 
+          type="checkbox" 
+          name="botcheck" 
+          className="hidden" 
+          style={{display: 'none'}}
+        />
+        
+        <div className="form-group">
+          <input 
+            type="text" 
+            name="name" 
+            placeholder="Imię i nazwisko"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <input 
+            type="email" 
+            name="email" 
+            placeholder="Email"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <input 
+            type="text" 
+            name="subject" 
+            placeholder="Temat"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <textarea 
+            name="message" 
+            placeholder="Wiadomość"
+            rows="5"
+            required
+          ></textarea>
+        </div>
+        <button type="submit" className="submit-btn">
+          Wyślij wiadomość
+        </button>
+      </form>
+      <div className="form-result">{result}</div>
+    </div>
+  );
+}
 
-
-
+// Reszta kodu App.js pozostaje bez zmian...
+function App() {
   return (
     <div className="App">
       <ReactFullpage
-        licenseKey={'YOUR_KEY_HERE'} // Dla wersji darmowej użyj gpl-v3-license
+        licenseKey={'gplv3-license'}
         scrollingSpeed={1000}
-        navigation={true}
-        navigationPosition={'right'}
-        showActiveTooltip={true}
-        sectionsColor={['#ffffff', '#ffffff', '#ffffff']}
         render={({ state, fullpageApi }) => {
           return (
             <ReactFullpage.Wrapper>
-              {/* Sekcja 1: Przywitanie i Logo */}
+              {/* Sekcja 1: Przywitanie */}
               <div className="section section-1">
                 <div className="container">
                   <div className="logo-container">
-                    <img 
-                      src="/logo-animation.gif" 
-                      alt="SoundTech Pro Logo" 
-                      className="logo-gif"
-                    />
+                    <div className="logo-placeholder">🎵</div>
                   </div>
-                  <h1 className="welcome-title">Witamy w SoundTech Pro</h1>
+                  <h1 className="welcome-title">SoundTech Pro</h1>
                   <p className="welcome-subtitle">
                     Profesjonalne rozwiązania akustyczne dla każdego wydarzenia
                   </p>
+                  <div className="scroll-indicator">
+                    <span>Przewiń w dół</span>
+                    <div className="arrow-down">↓</div>
+                  </div>
                 </div>
               </div>
 
               {/* Sekcja 2: O nas */}
               <div className="section section-2">
                 <div className="container">
-                  <h2>Czym się zajmujemy</h2>
+                  <h2>O nas</h2>
                   <div className="about-content">
                     <div className="about-text">
                       <p>
-                        <strong>SoundTech Pro</strong> to zespół doświadczonych akustyków 
-                        specjalizujących się w kompleksowej obsłudze technicznej wydarzeń 
+                        <strong>SoundTech Pro</strong> to zespół doświadczonych akustyków
+                        specjalizujących się w kompleksowej obsłudze technicznej wydarzeń
                         kulturalnych, biznesowych i prywatnych.
                       </p>
-                      <ul className="services-list">
-                        <li>🎵 Nagłośnienie koncertów i festiwali</li>
-                        <li>🎤 Systemy konferencyjne i prezentacyjne</li>
-                        <li>💡 Oświetlenie sceniczne LED i tradycyjne</li>
-                        <li>🎭 Kompleksowa obsługa techniczna teatrów</li>
-                        <li>🔧 Projektowanie i montaż instalacji audio</li>
-                        <li>📡 Transmisje na żywo i nagrania</li>
-                      </ul>
                       <p>
-                        Dysponujemy nowoczesnym sprzętem renomowanych marek oraz 
-                        wieloletnim doświadczeniem w branży. Gwarantujemy profesjonalną 
-                        obsługę od planowania po realizację wydarzenia.
+                        Dysponujemy nowoczesnym sprzętem renomowanych marek oraz wieloletnim 
+                        doświadczeniem w branży. Gwarantujemy profesjonalną obsługę od 
+                        planowania po realizację wydarzenia.
                       </p>
+                      <div className="services">
+                        <h3>Nasze usługi:</h3>
+                        <ul>
+                          <li>Nagłośnienie koncertów i festiwali</li>
+                          <li>Obsługa techniczna konferencji</li>
+                          <li>Systemy audio dla teatrów</li>
+                          <li>Nagłośnienie wesel i imprez prywatnych</li>
+                          <li>Wynajem sprzętu audio</li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -126,11 +143,10 @@ const App = () => {
               {/* Sekcja 3: Kontakt */}
               <div className="section section-3">
                 <div className="container">
-                  <h2>Skontaktuj się z nami</h2>
-                  
+                  <h2>Kontakt</h2>
                   <div className="contact-section">
                     <div className="contact-info">
-                      <h3>Dane kontaktowe</h3>
+                      <h3>Skontaktuj się z nami</h3>
                       <div className="contact-item">
                         <strong>📍 Adres:</strong>
                         <p>ul. Dźwiękowa 15<br />00-123 Warszawa</p>
@@ -149,52 +165,7 @@ const App = () => {
                       </div>
                     </div>
 
-                    <form className="contact-form" onSubmit={handleSubmit}>
-                      <h3>Wyślij wiadomość</h3>
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          name="name"
-                          placeholder="Twoje imię i nazwisko"
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          required
-                        />
-                      </div>
-                      <div className="form-group">
-                        <input
-                          type="email"
-                          name="email"
-                          placeholder="Twój adres email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          required
-                        />
-                      </div>
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          name="subject"
-                          placeholder="Temat wiadomości"
-                          value={formData.subject}
-                          onChange={handleInputChange}
-                          required
-                        />
-                      </div>
-                      <div className="form-group">
-                        <textarea
-                          name="message"
-                          placeholder="Treść wiadomości"
-                          rows="5"
-                          value={formData.message}
-                          onChange={handleInputChange}
-                          required
-                        ></textarea>
-                      </div>
-                      <button type="submit" className="submit-btn">
-                        Wyślij wiadomość
-                      </button>
-                    </form>
+                    <Contact />
                   </div>
                 </div>
               </div>
@@ -204,6 +175,6 @@ const App = () => {
       />
     </div>
   );
-};
+}
 
 export default App;
