@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactFullpage from '@fullpage/react-fullpage';
 import './App.css';
 
-function Contact() {
-  const [result, setResult] = React.useState("");
+function App() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [result, setResult] = useState("");
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
 
   const onSubmit = async (event) => {
     event.preventDefault();
     setResult("Wysyłanie...");
     const formData = new FormData(event.target);
 
-    // WAŻNE: Zamień na swój prawdziwy klucz z web3forms.com
     formData.append("access_key", "f987af94-36e3-42a5-858a-2cf1696ff7de");
 
     const response = await fetch("https://api.web3forms.com/submit", {
@@ -23,6 +36,12 @@ function Contact() {
     if (data.success) {
       setResult("Formularz wysłany pomyślnie!");
       event.target.reset();
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
     } else {
       console.log("Error", data);
       setResult(`Błąd: ${data.message}`);
@@ -30,65 +49,11 @@ function Contact() {
   };
 
   return (
-    <div className="contact-form">
-      <h3>Napisz do nas</h3>
-      <form onSubmit={onSubmit}>
-        {/* Honeypot - ochrona przed botami */}
-        <input 
-          type="checkbox" 
-          name="botcheck" 
-          className="hidden" 
-          style={{display: 'none'}}
-        />
-        
-        <div className="form-group">
-          <input 
-            type="text" 
-            name="name" 
-            placeholder="Imię i nazwisko"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input 
-            type="email" 
-            name="email" 
-            placeholder="Email"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <input 
-            type="text" 
-            name="subject" 
-            placeholder="Temat"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <textarea 
-            name="message" 
-            placeholder="Wiadomość"
-            rows="5"
-            required
-          ></textarea>
-        </div>
-        <button type="submit" className="submit-btn">
-          Wyślij wiadomość
-        </button>
-      </form>
-      <div className="form-result">{result}</div>
-    </div>
-  );
-}
-
-// Reszta kodu App.js pozostaje bez zmian...
-function App() {
-  return (
     <div className="App">
       <ReactFullpage
         licenseKey={'gplv3-license'}
         scrollingSpeed={1000}
+        // responsiveWidth={768}
         render={({ state, fullpageApi }) => {
           return (
             <ReactFullpage.Wrapper>
@@ -96,7 +61,11 @@ function App() {
               <div className="section section-1">
                 <div className="container">
                   <div className="logo-container">
-                    <div className="logo-placeholder">🎵</div>
+                    <img 
+                      src="/logo-animation.gif" 
+                      alt="SoundTech Pro Logo" 
+                      className="logo-gif"
+                    />
                   </div>
                   <h1 className="welcome-title">SoundTech Pro</h1>
                   <p className="welcome-subtitle">
@@ -165,7 +134,83 @@ function App() {
                       </div>
                     </div>
 
-                    <Contact />
+                    <div className="contact-cta">
+                      <h3>Masz pytania?</h3>
+                      {/* <p>Skontaktuj się z nami już dziś!</p> */}
+                      
+                      {/* Informacja o formularzu */}
+                      <div className="form-info">
+                        <div className="form-info-icon">📝</div>
+                        <p className="form-info-text">
+                          Przewiń w dół, aby wypełnić formularz kontaktowy
+                        </p>
+                        <div className="scroll-down-arrow">↓</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sekcja 4: Formularz */}
+              <div className="section section-4">
+                <div className="container">
+                  <h2>Formularz kontaktowy</h2>
+                  <div className="form-container">
+                    <form onSubmit={onSubmit} className="contact-form">
+                      {/* Honeypot */}
+                      <input 
+                        type="checkbox" 
+                        name="botcheck" 
+                        className="hidden" 
+                        style={{display: 'none'}}
+                      />
+                      
+                      <div className="form-group">
+                        <input 
+                          type="text" 
+                          name="name" 
+                          placeholder="Imię i nazwisko"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                      <div className="form-group">
+                        <input 
+                          type="email" 
+                          name="email" 
+                          placeholder="Email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                      <div className="form-group">
+                        <input 
+                          type="text" 
+                          name="subject" 
+                          placeholder="Temat"
+                          value={formData.subject}
+                          onChange={handleInputChange}
+                          required
+                        />
+                      </div>
+                      <div className="form-group">
+                        <textarea 
+                          name="message" 
+                          placeholder="Wiadomość"
+                          rows="5"
+                          value={formData.message}
+                          onChange={handleInputChange}
+                          required
+                        ></textarea>
+                      </div>
+                      <button type="submit" className="submit-btn">
+                        Wyślij wiadomość
+                      </button>
+                    </form>
+                    
+                    {result && <div className="form-result">{result}</div>}
                   </div>
                 </div>
               </div>
