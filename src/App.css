@@ -1,38 +1,247 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  color: #000;
+  background-color: #fff;
+  line-height: 1.6;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Wspólne style dla sekcji */
+.section {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  min-height: 100vh;
+  padding: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Sekcja 1: Przywitanie */
+.section-1 {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.logo-container {
+  margin-bottom: 2rem;
+}
+
+.logo-gif {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.welcome-title {
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #000;
+}
+
+.welcome-subtitle {
+  font-size: 1.5rem;
+  color: #333;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Sekcja 2: O nas */
+.section-2 h2 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  color: #000;
+}
+
+.about-content {
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-text p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.services-list {
+  list-style: none;
+  margin: 2rem 0;
+}
+
+.services-list li {
+  font-size: 1.1rem;
+  padding: 0.5rem 0;
+  color: #333;
+}
+
+/* Sekcja 3: Kontakt */
+.section-3 h2 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  color: #000;
+}
+
+.contact-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.contact-info {
+  text-align: left;
+}
+
+.contact-info h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #000;
+}
+
+.contact-item {
+  margin-bottom: 1.5rem;
+}
+
+.contact-item strong {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #000;
+}
+
+.contact-item p {
+  color: #333;
+  font-size: 1rem;
+}
+
+/* Formularz kontaktowy */
+.contact-form {
+  text-align: left;
+}
+
+.contact-form h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #000;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background-color: #fff;
+  color: #000;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #333;
+}
+
+.submit-btn {
+  background-color: #000;
+  color: #fff;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #333;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .welcome-title {
+    font-size: 2.5rem;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .welcome-subtitle {
+    font-size: 1.2rem;
   }
+  
+  .section-2 h2,
+  .section-3 h2 {
+    font-size: 2.2rem;
+  }
+  
+  .contact-section {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .about-text p,
+  .services-list li {
+    font-size: 1rem;
+  }
+  
+  .logo-gif {
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+  }
+  
+  .welcome-title {
+    font-size: 2rem;
+  }
+  
+  .welcome-subtitle {
+    font-size: 1rem;
+  }
+  
+  .section-2 h2,
+  .section-3 h2 {
+    font-size: 1.8rem;
+  }
+  
+  .logo-gif {
+    max-width: 200px;
+  }
+}
+
+/* Nawigacja fullPage.js */
+#fp-nav ul li a span,
+.fp-slidesNav ul li a span {
+  background: #000;
+}
+
+#fp-nav ul li a.active span,
+.fp-slidesNav ul li a.active span,
+#fp-nav ul li:hover a.active span,
+.fp-slidesNav ul li:hover a.active span {
+  background: #333;
 }
