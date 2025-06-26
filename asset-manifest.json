@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/AdamczewskiDev/akustycy-strona/static/css/main.fdc8ee09.css",
-    "main.js": "/AdamczewskiDev/akustycy-strona/static/js/main.d29d6e54.js",
-    "static/js/206.0ea60d9c.chunk.js": "/AdamczewskiDev/akustycy-strona/static/js/206.0ea60d9c.chunk.js",
-    "index.html": "/AdamczewskiDev/akustycy-strona/index.html"
+    "main.css": "/akustycy-strona/static/css/main.ccbb1dfc.css",
+    "main.js": "/akustycy-strona/static/js/main.03d57a8c.js",
+    "static/js/206.0ea60d9c.chunk.js": "/akustycy-strona/static/js/206.0ea60d9c.chunk.js",
+    "index.html": "/akustycy-strona/index.html"
   },
   "entrypoints": [
-    "static/css/main.fdc8ee09.css",
-    "static/js/main.d29d6e54.js"
+    "static/css/main.ccbb1dfc.css",
+    "static/js/main.03d57a8c.js"
   ]
 }
