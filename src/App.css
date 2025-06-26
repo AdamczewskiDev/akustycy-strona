@@ -494,3 +494,21 @@ body {
 .fp-slidesNav ul li:hover a.active span {
   background: #000;
 }
+
+/* Style dla błędów walidacji */
+.error-message {
+  color: #e74c3c;
+  font-size: 0.875rem;
+  margin-top: 5px;
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group input.error,
+.form-group textarea.error {
+  border-color: #e74c3c;
+  box-shadow: 0 0 5px rgba(231, 76, 60, 0.3);
+}

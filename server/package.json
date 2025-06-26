@@ -1,24 +1,32 @@
 {
-  "name": "server",
+  "name": "soundtech-pro-server",
   "version": "1.0.0",
+  "description": "Backend server for SoundTech Pro website",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test": "echo \"No tests specified\" && exit 0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
-    "express": "^5.1.0",
-    "nodemailer": "^7.0.3"
+    "escape-html": "^1.0.3",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.1",
+    "express-validator": "^7.2.1",
+    "helmet": "^7.2.0",
+    "nodemailer": "^6.10.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  }
+  },
+  "keywords": [
+    "express",
+    "nodejs",
+    "email",
+    "backend"
+  ],
+  "author": "SoundTech Pro",
+  "license": "MIT"
 }

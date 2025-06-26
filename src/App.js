@@ -19,16 +19,54 @@ function App() {
     }));
   };
 
+  const [errors, setErrors] = useState({});
+
+
+  const validateForm = (formData) => {
+  const errors = {};
+  
+  if (!formData.name.trim()) {
+    errors.name = 'Imię jest wymagane';
+  }
+  
+  if (!formData.email.trim()) {
+    errors.email = 'Email jest wymagany';
+  } else if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+    errors.email = 'Nieprawidłowy format email';
+  }
+  
+  if (!formData.subject.trim()) {
+    errors.subject = 'Temat jest wymagany';
+  }
+  
+  if (!formData.message.trim()) {
+    errors.message = 'Wiadomość jest wymagana';
+  }
+  
+  return errors;
+};
+
   const onSubmit = async (event) => {
-    event.preventDefault();
-    setResult("Wysyłanie...");
-    const formData = new FormData(event.target);
+  event.preventDefault();
+  
+  // Walidacja
+  const validationErrors = validateForm(formData);
+  if (Object.keys(validationErrors).length > 0) {
+    setErrors(validationErrors);
+    setResult("Proszę poprawić błędy w formularzu");
+    return;
+  }
+  
+  setErrors({});
+  setResult("Wysyłanie...");
+  
+  const formDataObj = new FormData(event.target);
+  formDataObj.append("access_key", process.env.REACT_APP_ACCESS_KEY);
 
-    formData.append("access_key", "f987af94-36e3-42a5-858a-2cf1696ff7de");
-
+  try {
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
-      body: formData
+      body: formDataObj
     });
 
     const data = await response.json();
@@ -46,7 +84,12 @@ function App() {
       console.log("Error", data);
       setResult(`Błąd: ${data.message}`);
     }
-  };
+  } catch (error) {
+    console.error("Błąd wysyłania:", error);
+    setResult("Wystąpił błąd podczas wysyłania formularza");
+  }
+};
+
 
   return (
     <div className="App">
@@ -63,8 +106,8 @@ function App() {
                   <div className="logo-container">
                     <img 
                       src="/logo-animation.gif" 
-                      alt="SoundTech Pro Logo" 
-                      className="logo-gif"
+                      alt="SoundTech Pro - animowane logo firmy akustycznej"
+                      className="logo-gif" 
                     />
                   </div>
                   <h1 className="welcome-title">SoundTech Pro</h1>
@@ -172,8 +215,10 @@ function App() {
                           placeholder="Imię i nazwisko"
                           value={formData.name}
                           onChange={handleInputChange}
+                          aria-label="Imię i nazwisko"
                           required
                         />
+                        {errors.name && <span className="error-message">{errors.name}</span>}
                       </div>
                       <div className="form-group">
                         <input 
@@ -182,8 +227,10 @@ function App() {
                           placeholder="Email"
                           value={formData.email}
                           onChange={handleInputChange}
+                          aria-label="Email"
                           required
                         />
+                        {errors.email && <span className="error-message">{errors.email}</span>}
                       </div>
                       <div className="form-group">
                         <input 
@@ -192,8 +239,10 @@ function App() {
                           placeholder="Temat"
                           value={formData.subject}
                           onChange={handleInputChange}
+                          aria-label="Temat"
                           required
                         />
+                        {errors.subject && <span className="error-message">{errors.subject}</span>}
                       </div>
                       <div className="form-group">
                         <textarea 
@@ -202,8 +251,10 @@ function App() {
                           rows="5"
                           value={formData.message}
                           onChange={handleInputChange}
+                          aria-label="Wiadomość"
                           required
                         ></textarea>
+                        {errors.message && <span className="error-message">{errors.message}</span>}
                       </div>
                       <button type="submit" className="submit-btn">
                         Wyślij wiadomość
