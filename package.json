@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://adamczewskidev.github.io/akustycy-strona",
-  "proxy": "http://localhost:5000",
   "dependencies": {
     "@fullpage/react-fullpage": "^0.1.48",
     "@testing-library/dom": "^10.4.0",
